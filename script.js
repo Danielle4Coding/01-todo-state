@@ -101,11 +101,13 @@ const KeyPressed = (evt) => {
 };
 inputTodoEl.addEventListener("keydown", KeyPressed);
 
-// add Clear list button
+// add Clear list button that empties local storage, list and input field
 clearEl.addEventListener("click", () => {
   localStorage.removeItem("currentTodos");
   // Empty state.todos
   state.todos = [];
+  // empty input field
+  inputTodoEl.value = "";
   // Render empty list
   renderTodos();
 });
