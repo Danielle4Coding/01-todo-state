@@ -55,18 +55,17 @@ function loadTodosFromLocalStorage() {
   }
 }
 
-// initial use of function load to dos
+// initial execution of function load to dos
 loadTodosFromLocalStorage();
 renderTodos();
-// if button Add To Do is clicked, empty list and create list of new state
-addButtonEl.addEventListener("click", () => {
+const renderNewTodos = () => {
   // store trimmed description in variable
   const trimmedDescription = inputTodoEl.value.trim();
   // check for duplicates
   let isDuplicate = false;
   state.todos.forEach((todo) => {
     // if new input is already in todos array update isDuplicate
-    if (trimmedDescription === todo.description) {
+    if (trimmedDescription.toLowerCase() === todo.description.toLowerCase()) {
       isDuplicate = true;
     }
   });
@@ -74,20 +73,35 @@ addButtonEl.addEventListener("click", () => {
   if (isDuplicate) {
     return;
   }
-  // if
+  // create new item for todos array
   if (trimmedDescription) {
     const newTodo = {
       id: state.todos.length + 1,
       description: trimmedDescription,
       done: false,
     };
+    // add new todo to array and save in local storage
     state.todos.push(newTodo);
     saveTodosToLocalStorage();
+    // render state
     renderTodos();
+    // empty input field
     inputTodoEl.value = "";
   }
+};
+// if button Add To Do is clicked, create list of new state
+addButtonEl.addEventListener("click", () => {
+  renderNewTodos();
 });
+// if Enter or space keys are pressed, create list of new state
+const KeyPressed = (evt) => {
+  if (evt.keyCode == "13" || evt.keyCode == "32") {
+    renderNewTodos();
+  }
+};
+inputTodoEl.addEventListener("keydown", KeyPressed);
 
+// add Clear list button
 clearEl.addEventListener("click", () => {
   localStorage.removeItem("currentTodos");
   // Empty state.todos
@@ -95,77 +109,3 @@ clearEl.addEventListener("click", () => {
   // Render empty list
   renderTodos();
 });
-/*
-// create function that renders a list element for each to do with checkbox and description
-// and an event handler that updates the done status in the state
-function renderTodos() {
-  // create variable containing the list reference
-  const list = document.querySelector("#list");
-  // set list to an empty string/ empty list
-  list.innerHTML = "";
-
-  // create list item for each item of todos array
-  state.todos.forEach((todo) => {
-    const todoLi = document.createElement("li");
-
-    // create checkbox for each item of todos array
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    // if checkbox is checked, give item property done: true
-    checkbox.checked = todo.done;
-
-    // add Eventhandler to checkbox if checkbox is changed
-    checkbox.addEventListener("change", (e) => {
-      // create variable that stores state of checkbox
-      const newTodoDoneState = e.target.checked;
-      todo.done = newTodoDoneState;
-    });
-
-    // after creating a new element it needs to be appended to the li node
-    todoLi.appendChild(checkbox);
-
-    // create variable creating a text node containing the input (to do description)
-    const todoText = document.createTextNode(todo.description);
-    // append text to li
-    todoLi.appendChild(todoText);
-    // append li to list
-    list.appendChild(todoLi);
-  });
-}
-
-renderTodos();
-
-function updateTodoStatus(todoId, newStatus) {
-  const todoToUpdate = state.todos.find((todo) => todo.id === todoId);
-  console.log(todoToUpdate);
-  if (todoToUpdate) {
-    todoToUpdate.done = newStatus;
-    renderTodos(); // Update the UI after changing the state
-  }
-}
-
-function handleCheckboxChange(todoId) {
-  return function (e) {
-    updateTodoStatus(todoId, e.target.checked);
-  };
-}
-
-function renderTodos() {
-  const list = document.querySelector("#list");
-  list.innerHTML = "";
-
-  state.todos.forEach((todo) => {
-    const todoLi = document.createElement("li");
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.checked = todo.done;
-
-    checkbox.addEventListener("change", handleCheckboxChange(todo.id));
-
-    todoLi.appendChild(checkbox);
-    const todoText = document.createTextNode(todo.description);
-    todoLi.appendChild(todoText);
-    list.appendChild(todoLi);
-  });
-}
-*/
