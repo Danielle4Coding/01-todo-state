@@ -4,15 +4,14 @@ const state = {
   // create state variable containing an array of to dos
   // which are objects with keys id, description, done
   todos: [
-    { id: 1, description: "Learn SQL", done: false },
-    { id: 2, description: "Learn HTML", done: true },
-    { id: 3, description: "Learn CSS", done: true },
+    // { id: 1, description: "Learn SQL", done: false },
   ],
 };
 
 const inputTodoEl = document.querySelector("#new-todo");
 const addButtonEl = document.querySelector("#add-todo");
 const list = document.querySelector("#list");
+const clearEl = document.querySelector("#clearBtn");
 
 function renderTodos() {
   // empty list so we don't get it twice
@@ -31,7 +30,7 @@ function renderTodos() {
     // link state checked to todo state done
     todoCheckbox.checked = todo.done;
     // save done state to local storage
-    todoCheckbox.addEventListener("input", () => {
+    todoCheckbox.addEventListener("change", () => {
       todo.done = todoCheckbox.checked;
       saveTodosToLocalStorage();
     });
@@ -46,15 +45,12 @@ function renderTodos() {
 }
 // define function that saves the current to dos in local storage
 function saveTodosToLocalStorage() {
-  // therefore, the state.todos must be stringified
-  localStorage.setItem("currentTodoList", JSON.stringify(state.todos));
+  localStorage.setItem("currentTodos", JSON.stringify(state.todos));
 }
-// define function that loads the saved state
+
 function loadTodosFromLocalStorage() {
-  // check if there are saved to dos
-  const savedTodos = localStorage.getItem("currentTodoList");
+  const savedTodos = localStorage.getItem("currentTodos");
   if (savedTodos) {
-    // parse saved state from local storage
     state.todos = JSON.parse(savedTodos);
   }
 }
@@ -64,21 +60,41 @@ loadTodosFromLocalStorage();
 renderTodos();
 // if button Add To Do is clicked, empty list and create list of new state
 addButtonEl.addEventListener("click", () => {
-  // insert new to do with id, description and checkbox state undefined
-  const newTodo = {
-    id: state.todos.length + 1,
-    description: inputTodoEl.value,
-    done: false,
-  };
-  // insert new todo into state todos array
-  state.todos.push(newTodo);
-  // use function
-  saveTodosToLocalStorage();
-  renderTodos();
-  inputTodoEl.value = "";
-  console.log(state.todos);
+  // store trimmed description in variable
+  const trimmedDescription = inputTodoEl.value.trim();
+  // check for duplicates
+  let isDuplicate = false;
+  state.todos.forEach((todo) => {
+    // if new input is already in todos array update isDuplicate
+    if (trimmedDescription === todo.description) {
+      isDuplicate = true;
+    }
+  });
+  // if variable turns true terminate function
+  if (isDuplicate) {
+    return;
+  }
+  // if
+  if (trimmedDescription) {
+    const newTodo = {
+      id: state.todos.length + 1,
+      description: trimmedDescription,
+      done: false,
+    };
+    state.todos.push(newTodo);
+    saveTodosToLocalStorage();
+    renderTodos();
+    inputTodoEl.value = "";
+  }
 });
 
+clearEl.addEventListener("click", () => {
+  localStorage.removeItem("currentTodos");
+  // Empty state.todos
+  state.todos = [];
+  // Render empty list
+  renderTodos();
+});
 /*
 // create function that renders a list element for each to do with checkbox and description
 // and an event handler that updates the done status in the state
