@@ -11,7 +11,9 @@ const state = {
 const inputTodoEl = document.querySelector("#new-todo");
 const addButtonEl = document.querySelector("#add-todo");
 const list = document.querySelector("#list");
+const alertEl = document.querySelector("#alert");
 const clearEl = document.querySelector("#clearBtn");
+const removeBtnEl = document.querySelector("#removeBtn");
 
 function renderTodos() {
   // empty list so we don't get it twice
@@ -71,6 +73,7 @@ const renderNewTodos = () => {
   });
   // if variable turns true terminate function
   if (isDuplicate) {
+    alertEl.textContent = "This to do already exists in your list!";
     return;
   }
   // create new item for todos array
@@ -93,13 +96,6 @@ const renderNewTodos = () => {
 addButtonEl.addEventListener("click", () => {
   renderNewTodos();
 });
-// if Enter or space keys are pressed, create list of new state
-const KeyPressed = (evt) => {
-  if (evt.keyCode == "13" || evt.keyCode == "32") {
-    renderNewTodos();
-  }
-};
-inputTodoEl.addEventListener("keydown", KeyPressed);
 
 // add Clear list button that empties local storage, list and input field
 clearEl.addEventListener("click", () => {
@@ -109,5 +105,17 @@ clearEl.addEventListener("click", () => {
   // empty input field
   inputTodoEl.value = "";
   // Render empty list
+  renderTodos();
+});
+
+// add Remove done to dos button
+removeBtnEl.addEventListener("click", () => {
+  // filter the to dos that aren't done
+  state.todos = state.todos.filter((todo) => !todo.done);
+
+  // store the open todos in localStorage
+  saveTodosToLocalStorage();
+
+  // render updated to dos
   renderTodos();
 });

@@ -10,8 +10,17 @@
 </head>
 
 <body class="body">
-    <input type="text" value="" id="new-todo" />
-    <button id="add-todo">Add Todo</button> <button id="clearBtn">Clear List</button>
+    <form>
+        <label for="new-todo">Add <i>to do</i></label>
+        <br>
+        <input type="text" value="" id="new-todo" />
+    </form>
+    <button id="add-todo">Add <i>to do</i></button>
+    <p id="alert"></p>
+    <br>
+    <button id="removeBtn">Remove done
+        <i>to dos</i></button>
+    <button id="clearBtn">Clear List</button>
     <ul id="list"></ul>
     <script src="script.js"></script>
 </body>
