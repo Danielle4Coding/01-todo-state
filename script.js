@@ -14,12 +14,15 @@ const list = document.querySelector("#list");
 const alertEl = document.querySelector("#alert");
 const clearEl = document.querySelector("#clearBtn");
 const removeBtnEl = document.querySelector("#removeBtn");
+const fiAllTodosRadio = document.querySelector("#filterAll");
+const fiDoneTodosRadio = document.querySelector("#filterDone");
+const fiOpenTodosRadio = document.querySelector("#filterOpen");
 
-function renderTodos() {
+function renderTodos(filteredTodos = state.todos) {
   // empty list so we don't get it twice
   list.innerHTML = "";
   // render initial state: show list of lis with checkboxes
-  state.todos.forEach((todo) => {
+  filteredTodos.forEach((todo) => {
     // create li for each todo
     const todoListElement = document.createElement("li");
     // add li to list
@@ -60,7 +63,7 @@ function loadTodosFromLocalStorage() {
 // initial execution of function load to dos
 loadTodosFromLocalStorage();
 renderTodos();
-const renderNewTodos = () => {
+const addNewTodos = () => {
   // store trimmed description in variable
   const trimmedDescription = inputTodoEl.value.trim();
   // check for duplicates
@@ -94,8 +97,24 @@ const renderNewTodos = () => {
 };
 // if button Add To Do is clicked, create list of new state
 addButtonEl.addEventListener("click", () => {
-  renderNewTodos();
+  addNewTodos();
 });
+
+fiAllTodosRadio.addEventListener("change", () => {
+  renderTodos();
+});
+
+fiDoneTodosRadio.addEventListener("change", () => {
+  let filteredTodosDone = state.todos.filter((todo) => todo.done);
+  renderTodos(filteredTodosDone);
+});
+
+fiOpenTodosRadio.addEventListener("change", () => {
+  let filteredTodosOpen = state.todos.filter((todo) => !todo.done);
+  renderTodos(filteredTodosOpen);
+});
+
+renderTodos();
 
 // add Clear list button that empties local storage, list and input field
 clearEl.addEventListener("click", () => {

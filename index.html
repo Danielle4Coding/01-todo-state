@@ -17,7 +17,15 @@
     </form>
     <button id="add-todo">Add <i>to do</i></button>
     <p id="alert"></p>
-    <br>
+    <form id="filterForm">
+        <p id="filterTextEl">Filter <i>to dos</i></p>
+        <input type="radio" id="filterAll" value="all" name="filter" checked="checked" />
+        <label for="filterAll">all</p>
+            <input type="radio" id="filterDone" value="done" name="filter" />
+            <label for="filterDone">done</p>
+                <input type="radio" id="filterOpen" value="open" name="filter" />
+                <label for="filterOpen">open</p>
+    </form>
     <button id="removeBtn">Remove done
         <i>to dos</i></button>
     <button id="clearBtn">Clear List</button>
