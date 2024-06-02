@@ -32,20 +32,25 @@ function renderTodos(filteredTodos = state.todos) {
     const todoCheckbox = document.createElement("input");
     // give input element type checkbox
     todoCheckbox.type = "checkbox";
+    // add id to checkbox (semantic coding)
+    todoCheckbox.id = "todo-" + todo.id;
     // link state checked to todo state done
     todoCheckbox.checked = todo.done;
     // save done state to local storage
     todoCheckbox.addEventListener("change", () => {
-      todo.done = todoCheckbox.checked;
+      todo.done = !todo.done;
       saveTodosToLocalStorage();
     });
-    // add checkbox to li
-    todoListElement.appendChild(todoCheckbox);
 
-    // create text node with description to li
-    const todoDescription = document.createTextNode(todo.description);
-    // add description text to li
-    todoListElement.appendChild(todoDescription);
+    // create label for checkbox
+    const todoDescription = document.createElement("label");
+    // label for attribute is always equal to id of its input element
+    todoDescription.HTMLfor = todoCheckbox.id;
+    // link description variable to description in state
+    todoDescription.innerText = todo.description;
+
+    // add checkbox and description text to li
+    todoListElement.append(todoCheckbox, todoDescription);
   });
 }
 // define function that saves the current to dos in local storage
