@@ -1,5 +1,3 @@
-// const filterOptions = ["all", "done", "open"];
-
 const state = {
   // create state variable containing an array of to dos
   // which are objects with keys id, description, done
@@ -14,9 +12,6 @@ const list = document.querySelector("#list");
 const alertEl = document.querySelector("#alert");
 const clearEl = document.querySelector("#clearBtn");
 const removeBtnEl = document.querySelector("#removeBtn");
-const fiAllTodosRadio = document.querySelector("#filterAll");
-const fiDoneTodosRadio = document.querySelector("#filterDone");
-const fiOpenTodosRadio = document.querySelector("#filterOpen");
 
 function renderTodos(filteredTodos = state.todos) {
   // empty list so we don't get it twice
@@ -100,24 +95,29 @@ const addNewTodos = () => {
     inputTodoEl.value = "";
   }
 };
+
 // if button Add To Do is clicked, create list of new state
 addButtonEl.addEventListener("click", () => {
   addNewTodos();
 });
 
-fiAllTodosRadio.addEventListener("change", () => {
-  renderTodos();
-});
+const filterWrapper = document.querySelector("#filter-form");
 
-fiDoneTodosRadio.addEventListener("change", () => {
-  let filteredTodosDone = state.todos.filter((todo) => todo.done);
-  renderTodos(filteredTodosDone);
-});
+filterWrapper.addEventListener("change", filterToDos);
 
-fiOpenTodosRadio.addEventListener("change", () => {
-  let filteredTodosOpen = state.todos.filter((todo) => !todo.done);
-  renderTodos(filteredTodosOpen);
-});
+function filterToDos(event) {
+  const fiTodos = event.target;
+  const currentFilterOption = fiTodos.id;
+  if (currentFilterOption === "filterDone") {
+    let filteredTodosDone = state.todos.filter((todo) => todo.done);
+    renderTodos(filteredTodosDone);
+  } else if (currentFilterOption === "filterOpen") {
+    let filteredTodosOpen = state.todos.filter((todo) => !todo.done);
+    renderTodos(filteredTodosOpen);
+  } else {
+    renderTodos();
+  }
+}
 
 renderTodos();
 

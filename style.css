@@ -1,0 +1,75 @@
+body {
+  background-color: #45818e;
+}
+
+#flex-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+#button-wrapper {
+  margin: 2% auto;
+  padding: 20px;
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+
+  font-family: Ubuntu;
+  font-size: 20px;
+
+  background-color: #f1f8f7;
+
+  height: max-height;
+  min-height: 680px;
+}
+#list-wrapper {
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  box-shadow: 1px 1px 0 #dddddd;
+  display: block;
+  font-family: "Bradley Hand";
+  font-size: 22px;
+  color: #111199;
+  line-height: 50px;
+  margin: 2% auto;
+  padding: 11px 20px 0 70px;
+  resize: none;
+  height: max-height;
+  min-height: 680px;
+  width: 530px;
+
+  background-image: -moz-linear-gradient(top, white, white 49px, #f1f8f7 0px),
+    -moz-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent
+          0%),
+    -moz-radial-gradient(3.9% 46%, circle closest-corner, #cccccc, #cccccc 43.5%, transparent
+          0%);
+  background-image: -webkit-linear-gradient(top, white, white 49px, #e7eff8 0);
+  -webkit-background-size: 100% 50px;
+  background-size: 100% 50px;
+}
+ul {
+  list-style: none;
+  margin-top: -20px;
+  margin-left: -50px;
+}
+
+ul input {
+  width: 27.5px;
+  height: 27.5px;
+}
+
+ul label {
+  margin-left: 20px;
+}
+
+button,
+input {
+  font-size: 20px;
+}
+
+h1 {
+  margin-top: -10px;
+  margin-left: 40px;
+  text-decoration: underline;
+}

@@ -10,28 +10,41 @@
 </head>
 
 <body class="body">
-    <form>
-        <label for="new-todo">Add <i>to do</i></label>
-        <br>
-        <input type="text" value="" id="new-todo" />
-        <button id="add-todo">Add <i>to do</i></button>
-        <p id="alert"></p>
-    </form>
+    <div id="flex-wrapper">
+        <div id="list-wrapper">
+            <h1>TO DOS</h1>
+            <ul id="list">
+            </ul>
+        </div>
+        <div id="button-wrapper">
+            <form>
+                <br>
+                <label for="new-todo">Add <i>TO DO</i></label>
+                <br>
+                <input type="text" value="" id="new-todo" />
+                <button id="add-todo">Add <i>TO DO</i></button>
+                <p id="alert"></p>
+            </form>
 
-    <form id="filterForm">
-        <p id="filterTextEl">Filter <i>to dos</i></p>
-        <input type="radio" id="filterAll" value="all" name="filter" checked="checked" />
-        <label for="filterAll">all</p>
-            <input type="radio" id="filterDone" value="done" name="filter" />
-            <label for="filterDone">done</p>
-                <input type="radio" id="filterOpen" value="open" name="filter" />
-                <label for="filterOpen">open</p>
-    </form>
-    <button id="removeBtn">Remove done
-        <i>to dos</i></button>
-    <button id="clearBtn">Clear List</button>
-    <ul id="list"></ul>
-    <script src="script.js"></script>
+            <form id="filter-form">
+                <p id="filterTextEl">Filter <i>TO DOS</i></p>
+                <input type="radio" id="filterAll" value="all" name="filter" checked="checked" />
+                <label for="filterAll">all</p>
+                    <input type="radio" id="filterDone" value="done" name="filter" />
+                    <label for="filterDone">done</p>
+                        <input type="radio" id="filterOpen" value="open" name="filter" />
+                        <label for="filterOpen">open</p>
+            </form>
+            <br>
+
+            <button id="removeBtn">Remove done
+                <i>TO DOS</i></button>
+            <br>
+            <br>
+            <button id="clearBtn">Clear List</button>
+            <script src="script.js"></script>
+        </div>
+    </div>
 </body>
 
 </html>
