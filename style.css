@@ -73,3 +73,7 @@ h1 {
   margin-left: 40px;
   text-decoration: underline;
 }
+
+.description--strikeThrough {
+  text-decoration: line-through;
+}

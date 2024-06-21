@@ -12,7 +12,7 @@
 <body class="body">
     <div id="flex-wrapper">
         <div id="list-wrapper">
-            <h1>TO DOS</h1>
+            <h1>TO DO</h1>
             <ul id="list">
             </ul>
         </div>
@@ -34,6 +34,16 @@
                     <label for="filterDone">done</p>
                         <input type="radio" id="filterOpen" value="open" name="filter" />
                         <label for="filterOpen">open</p>
+            </form>
+
+            <form id="sort-form">
+                <p id="sortTextEl">Sort <i>TO DOS</i></p>
+                <input type="radio" id="sortDefault" value="default" name="sort" checked="checked" />
+                <label for="sortDefault">default</p>
+                    <input type="radio" id="sortDone" value="done" name="sort" />
+                    <label for="sortDone">done</p>
+                        <input type="radio" id="sortOpen" value="open" name="sort" />
+                        <label for="sortOpen">open</p>
             </form>
             <br>
 
